@@ -1,4 +1,4 @@
-# r/dailyprogrammer Challenge \#364: Route Transposition Cipher
+# r/dailyprogrammer Challenge \#362: Route Transposition Cipher
 
 Link to the challenge:
 <https://www.reddit.com/r/dailyprogrammer/comments/8n8tog/20180530_challenge_362_intermediate_route/>
