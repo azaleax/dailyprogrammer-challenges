@@ -11,16 +11,15 @@ class Directions(Enum):
   COUNTER_CLOCKWISE = 1
 
 # Populate the encoder array
+# TODO see if there is cleaner implementation to the same logics, maybe list comoprehension?
 def populate_encoder_array(string, encoder_array):
   string_idx = 0
 
-  for row in range(len(encoder_array)):
-    for column in range(len(encoder_array[row])):
+  for i, row in enumerate(encoder_array):
+    for j, column in enumerate(row):
       if (string_idx < len(string)):
-        encoder_array[row][column] = string[string_idx]
+        encoder_array[i][j] = string[string_idx]
         string_idx += 1
-      else:
-        break
 
 # Create one loop for string
 # TODO This function is messy & hardcoded to a certain extent... need to clean up the logic

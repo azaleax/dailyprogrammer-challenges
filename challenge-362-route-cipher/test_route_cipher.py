@@ -1,5 +1,5 @@
 import pytest
-from route_cipher import encode
+from route_cipher import encod
 from route_cipher import Directions
 
 """
@@ -105,5 +105,5 @@ Functions to run the unit tests
 
 @pytest.mark.parametrize('inp_string, dimension, direction, expected_out_string', test_route_cipher_list)
 def test_route_cipher(inp_string, dimension, direction, expected_out_string):
-  actual_out_string = encode(inp_string, dimension, direction)
+  actual_out_string = encod(inp_string, dimension, direction)
   assert (actual_out_string == expected_out_string)
