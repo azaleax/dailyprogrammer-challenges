@@ -11,15 +11,11 @@ class Directions(Enum):
   COUNTER_CLOCKWISE = 1
 
 # Populate the encoder array
-# TODO see if there is cleaner implementation to the same logics, maybe list comoprehension?
 def populate_encoder_array(string, encoder_array):
-  string_idx = 0
+  num_column = len(encoder_array[0])
 
-  for i, row in enumerate(encoder_array):
-    for j, column in enumerate(row):
-      if (string_idx < len(string)):
-        encoder_array[i][j] = string[string_idx]
-        string_idx += 1
+  for i, char in enumerate(string):
+    encoder_array[int(i / num_column)][int(i % num_column)] = char
 
 # Create one loop for string
 # TODO This function is messy & hardcoded to a certain extent... need to clean up the logic
@@ -113,18 +109,13 @@ def encode(inp_string, dimension, direction):
   # Remove any non-alphanumeric characters and convert the strint to all upper case
   stripped_string = ''.join(char for char in inp_string if char.isalnum()).upper()
 
-  print(stripped_string)
-
   # Create and populate the array with the stripped string
   encoder_array = [['X' for column in range(dimension[0])] for row in range(dimension[1])]
 
-  #Create and populate the array which contains the information whether the element in the array
-  #has already been added in the encoded string
+  # Create and populate the array which keeps track if element in the encoder_array has already been encoded
   is_encoded_array = [[False for column in range(dimension[0])] for row in range(dimension[1])]
 
   populate_encoder_array(stripped_string, encoder_array)
-
-  print(encoder_array)
 
   out_string = ''
 
@@ -137,8 +128,3 @@ def encode(inp_string, dimension, direction):
     assert(False)
 
   return out_string
-
-# Run the encode function
-out_string = encode("WE ARE DISCOVERED. FLEE AT ONCE", (9, 3), Directions.CLOCKWISE)
-
-print(out_string)

@@ -1,8 +1,5 @@
 {
-  "test_route_cipher.py": true,
-  "test_route_cipher.py::test_route_cipher[For lunch let's have peanut-butter and bologna sandwiches-dimension1-Directions.CLOCKWISE-LHSENURBGAISEHCNNOATUPHLUFORCTVABEDOSWDALNTTEAEN]": true,
   "test_route_cipher.py::test_route_cipher[For lunch let's have peanut-butter and bologna sandwiches-dimension3-Directions.CLOCKWISE-LHSENURBGAISEHCNNOATUPHLUFORCTVABEDOSWDALNTTEAEN]": true,
-  "test_route_cipher.py::test_route_cipher[I've even witnessed a grown man satisfy a camel-dimension2-Directions.CLOCKWISE-IGAMXXXXXXXLETRTIVEEVENWASACAYFSIONESSEDNAMNW]": true,
   "test_route_cipher.py::test_route_cipher[I've even witnessed a grown man satisfy a camel-dimension4-Directions.CLOCKWISE-IGAMXXXXXXXLETRTIVEEVENWASACAYFSIONESSEDNAMNW]": true,
   "test_route_cipher.py::test_route_cipher[Solving challenges on r/dailyprogrammer is so much fun!!-dimension2-Directions.COUNTER_CLOCKWISE-CGNIVLOSHSYMUCHFUNXXMMLEGNELLAOPERISSOAIADRNROGR]": true,
   "test_route_cipher.py::test_route_cipher[Why does it say paper jam when there is no paper jam?-dimension5-Directions.COUNTER_CLOCKWISE-YHWDSSPEAHTRSPEAMXJPOIENWJPYTEOIAARMEHENAR]": true,
