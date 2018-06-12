@@ -1,6 +1,6 @@
 import pytest
 from route_cipher import encode
-from route_cipher import Directions
+from route_cipher import Spiral_Directions
 
 """
 Class definition for unit test parameters
@@ -18,42 +18,42 @@ Objects defined for unit tests
 test_route_cipher__example_1 = RouteCipherTest(
   "WE ARE DISCOVERED. FLEE AT ONCE",
   (9,3),
-  Directions.CLOCKWISE,
+  Spiral_Directions.CLOCKWISE,
   "CEXXECNOTAEOWEAREDISLFDEREV",
   )
 
 test_route_cipher__example_2 = RouteCipherTest(
   "why is this professor so boring omg",
   (6, 5),
-  Directions.COUNTER_CLOCKWISE,
+  Spiral_Directions.COUNTER_CLOCKWISE,
   "TSIYHWHFSNGOMGXIRORPSIEOBOROSS",
   )
 
 test_route_cipher__example_3 = RouteCipherTest(
   "Solving challenges on r/dailyprogrammer is so much fun!!",
   (8,6),
-  Directions.COUNTER_CLOCKWISE,
+  Spiral_Directions.COUNTER_CLOCKWISE,
   "CGNIVLOSHSYMUCHFUNXXMMLEGNELLAOPERISSOAIADRNROGR",
   )
 
 test_route_cipher__example_4 = RouteCipherTest(
   "For lunch let's have peanut-butter and bologna sandwiches",
   (4, 12),
-  Directions.CLOCKWISE,
+  Spiral_Directions.CLOCKWISE,
   "LHSENURBGAISEHCNNOATUPHLUFORCTVABEDOSWDALNTTEAEN",
   )
 
 test_route_cipher__example_5 = RouteCipherTest(
   "I've even witnessed a grown man satisfy a camel",
   (9, 5),
-  Directions.CLOCKWISE,
+  Spiral_Directions.CLOCKWISE,
   "IGAMXXXXXXXLETRTIVEEVENWASACAYFSIONESSEDNAMNW",
   )
 
 test_route_cipher__example_6 = RouteCipherTest(
   "Why does it say paper jam when there is no paper jam?",
   (3, 14),
-  Directions.COUNTER_CLOCKWISE,
+  Spiral_Directions.COUNTER_CLOCKWISE,
   "YHWDSSPEAHTRSPEAMXJPOIENWJPYTEOIAARMEHENAR",
   )
 
