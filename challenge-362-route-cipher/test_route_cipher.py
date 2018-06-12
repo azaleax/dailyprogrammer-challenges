@@ -61,24 +61,12 @@ test_route_cipher__example_6 = RouteCipherTest(
 """
 List of all unit test inputs
 """
-test_route_cipher_list = [
+test_route_cipher_clockwise_list = [
 
   (test_route_cipher__example_1.inp_string,
    test_route_cipher__example_1.dimension,
    test_route_cipher__example_1.direction,
    test_route_cipher__example_1.expected_out_string),
-
-  # TODO Uncomment once counter clockwise is implemented
-
-  # (test_route_cipher__example_2.inp_string,
-  #  test_route_cipher__example_2.dimension,
-  #  test_route_cipher__example_2.direction,
-  #  test_route_cipher__example_2.expected_out_string),
-
-  # (test_route_cipher__example_3.inp_string,
-  #  test_route_cipher__example_3.dimension,
-  #  test_route_cipher__example_3.direction,
-  #  test_route_cipher__example_3.expected_out_string),
 
   (test_route_cipher__example_4.inp_string,
    test_route_cipher__example_4.dimension,
@@ -89,21 +77,38 @@ test_route_cipher_list = [
    test_route_cipher__example_5.dimension,
    test_route_cipher__example_5.direction,
    test_route_cipher__example_5.expected_out_string),
+]
 
-  # TODO Uncomment once counter clockwise is implemented
+test_route_cipher_counter_clockwise_list = [
 
-  # (test_route_cipher__example_6.inp_string,
-  #  test_route_cipher__example_6.dimension,
-  #  test_route_cipher__example_6.direction,
-  #  test_route_cipher__example_6.expected_out_string),
+  (test_route_cipher__example_2.inp_string,
+   test_route_cipher__example_2.dimension,
+   test_route_cipher__example_2.direction,
+   test_route_cipher__example_2.expected_out_string),
+
+  (test_route_cipher__example_3.inp_string,
+   test_route_cipher__example_3.dimension,
+   test_route_cipher__example_3.direction,
+   test_route_cipher__example_3.expected_out_string),
+
+  (test_route_cipher__example_6.inp_string,
+   test_route_cipher__example_6.dimension,
+   test_route_cipher__example_6.direction,
+   test_route_cipher__example_6.expected_out_string),
 
 ]
+
 
 """
 Functions to run the unit tests
 """
+@pytest.mark.parametrize('inp_string, dimension, direction, expected_out_string', test_route_cipher_clockwise_list)
+def test_route_cipher_clockwise(inp_string, dimension, direction, expected_out_string):
+  actual_out_string = encode(inp_string, dimension, direction)
+  assert (actual_out_string == expected_out_string)
 
-@pytest.mark.parametrize('inp_string, dimension, direction, expected_out_string', test_route_cipher_list)
-def test_route_cipher(inp_string, dimension, direction, expected_out_string):
+@pytest.mark.xfail
+@pytest.mark.parametrize('inp_string, dimension, direction, expected_out_string', test_route_cipher_counter_clockwise_list)
+def test_route_cipher_counter_clockwise(inp_string, dimension, direction, expected_out_string):
   actual_out_string = encode(inp_string, dimension, direction)
   assert (actual_out_string == expected_out_string)
