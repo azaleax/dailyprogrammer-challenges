@@ -4,7 +4,7 @@ Link to the challenge:
 <https://www.reddit.com/r/dailyprogrammer/comments/8n8tog/20180530_challenge_362_intermediate_route/>
 
 ## Problem Description:
-Given input string and direction, populate the string into the array in a traditional left-to-right, up-to-down, manner. When encoding, use the same array as a reference, and create the encoded string by going through the array in a spiral in either clock-wise or counter-clockwise direction.
+Given input string and direction, populate the string into an array of given dimension in a traditional left-to-right, up-to-down, manner. When encoding, use the same array as a reference, and create the encoded string by going through the array in a spiral in either clock-wise or counter-clockwise direction.
 
 More detailed description and example can be found at the challenge link
 
