@@ -127,5 +127,6 @@ def test_route_cipher_counter_clockwise(
   direction,
   expected_out_string
   ):
+
   actual_out_string = encode(inp_string, dimension, direction)
   assert (actual_out_string == expected_out_string)
