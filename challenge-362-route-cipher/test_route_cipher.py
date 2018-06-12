@@ -106,7 +106,13 @@ Functions to run the unit tests
   'inp_string, dimension,direction, expected_out_string',
   test_route_cipher_clockwise_list
   )
-def test_route_cipher_clockwise(inp_string, dimension, direction, expected_out_string):
+def test_route_cipher_clockwise(
+  inp_string,
+  dimension,
+  direction,
+  expected_out_string
+  ):
+
   actual_out_string = encode(inp_string, dimension, direction)
   assert (actual_out_string == expected_out_string)
 
@@ -115,6 +121,11 @@ def test_route_cipher_clockwise(inp_string, dimension, direction, expected_out_s
   'inp_string, dimension, direction, expected_out_string',
   test_route_cipher_counter_clockwise_list
   )
-def test_route_cipher_counter_clockwise(inp_string, dimension, direction, expected_out_string):
+def test_route_cipher_counter_clockwise(
+  inp_string,
+  dimension,
+  direction,
+  expected_out_string
+  ):
   actual_out_string = encode(inp_string, dimension, direction)
   assert (actual_out_string == expected_out_string)
