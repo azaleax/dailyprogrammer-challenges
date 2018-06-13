@@ -95,8 +95,6 @@ def encode_loop(
   out_string = ''
   num_vertical_steps = len(encoder_array) - ((2 * loop_idx) + 1)
   num_horizontal_steps = len(encoder_array[0]) - ((2 * loop_idx) + 1)
-  num_fail = 0
-  is_encoding_done = False
 
   for idx in range(Traverse_Directions.NUM_DIRECTIONS.value):
     if (direction_order[spiral_dir.value][idx] == Traverse_Directions.UP or
@@ -114,7 +112,7 @@ def encode_loop(
 
     out_string += traversed_string
 
-  return out_string, is_encoding_done
+  return out_string
 
 
 # Encode for clockwise direction
@@ -124,15 +122,12 @@ def encode_spiral(string, encoder_array, spiral_dir):
   loop_idx = 0
   loop_string = ''
   out_string = ''
-  is_encoding_done = False
-
-  stop_idx = int(min(len(encoder_array[0]) / 2, len(encoder_array) / 2) + 1)
 
   while(True):
 
     out_string = out_string + loop_string
 
-    loop_string, is_encoding_done = encode_loop(
+    loop_string = encode_loop(
       encoder_array,
       loop_idx,
       loop_start_loc,

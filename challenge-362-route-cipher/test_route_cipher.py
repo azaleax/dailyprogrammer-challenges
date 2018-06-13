@@ -44,15 +44,13 @@ class EncodeLoopTest:
     start_loc,
     loop_idx,
     spiral_dir,
-    expected_out_string,
-    expected_is_encoding_done
+    expected_out_string
     ):
     self.encoder_array        = encoder_array
     self.start_loc            = start_loc
     self.loop_idx             = loop_idx
     self.spiral_dir           = spiral_dir
     self.expected_out_string  = expected_out_string
-    self.expected_is_encoding_done = expected_is_encoding_done
 
 """
 Objects defined for unit tests
@@ -151,8 +149,7 @@ test_encode_loop__clockwise_0 = EncodeLoopTest(
   Location(0, 3),
   0,
   Spiral_Directions.CLOCKWISE,
-  "DHLPONMIEABC",
-  False,
+  "DHLPONMIEABC"
   )
 
 test_encode_loop__clockwise_1 = EncodeLoopTest(
@@ -163,8 +160,7 @@ test_encode_loop__clockwise_1 = EncodeLoopTest(
   Location(1, 2),
   1,
   Spiral_Directions.CLOCKWISE,
-  "GKJF",
-  False,
+  "GKJF"
   )
 
 test_encode_loop__counter_clockwise_0 = EncodeLoopTest(
@@ -175,8 +171,7 @@ test_encode_loop__counter_clockwise_0 = EncodeLoopTest(
   Location(0, 3),
   0,
   Spiral_Directions.COUNTER_CLOCKWISE,
-  "DCBAEIMNOPLH",
-  False,
+  "DCBAEIMNOPLH"
   )
 
 test_encode_loop__counter_clockwise_1 = EncodeLoopTest(
@@ -187,8 +182,7 @@ test_encode_loop__counter_clockwise_1 = EncodeLoopTest(
   Location(1, 2),
   1,
   Spiral_Directions.COUNTER_CLOCKWISE,
-  "GFJK",
-  False,
+  "GFJK"
   )
 
 """
@@ -264,29 +258,25 @@ test_encode_loop_list = [
    test_encode_loop__clockwise_0.loop_idx,
    test_encode_loop__clockwise_0.start_loc,
    test_encode_loop__clockwise_0.spiral_dir,
-   test_encode_loop__clockwise_0.expected_out_string,
-   test_encode_loop__clockwise_0.expected_is_encoding_done),
+   test_encode_loop__clockwise_0.expected_out_string),
 
   (test_encode_loop__clockwise_1.encoder_array,
    test_encode_loop__clockwise_1.loop_idx,
    test_encode_loop__clockwise_1.start_loc,
    test_encode_loop__clockwise_1.spiral_dir,
-   test_encode_loop__clockwise_1.expected_out_string,
-   test_encode_loop__clockwise_1.expected_is_encoding_done),
+   test_encode_loop__clockwise_1.expected_out_string),
 
   (test_encode_loop__counter_clockwise_0.encoder_array,
    test_encode_loop__counter_clockwise_0.loop_idx,
    test_encode_loop__counter_clockwise_0.start_loc,
    test_encode_loop__counter_clockwise_0.spiral_dir,
-   test_encode_loop__counter_clockwise_0.expected_out_string,
-   test_encode_loop__counter_clockwise_0.expected_is_encoding_done),
+   test_encode_loop__counter_clockwise_0.expected_out_string),
 
   (test_encode_loop__counter_clockwise_1.encoder_array,
    test_encode_loop__counter_clockwise_1.loop_idx,
    test_encode_loop__counter_clockwise_1.start_loc,
    test_encode_loop__counter_clockwise_1.spiral_dir,
-   test_encode_loop__counter_clockwise_1.expected_out_string,
-   test_encode_loop__counter_clockwise_1.expected_is_encoding_done),
+   test_encode_loop__counter_clockwise_1.expected_out_string),
 
 ]
 
@@ -339,7 +329,7 @@ def test_traverse(
   assert(string == expected_out_string)
 
 @pytest.mark.parametrize(
-  'encoder_array, loop_idx, loc, spiral_dir, expected_out_string, expected_is_encoding_done',
+  'encoder_array, loop_idx, loc, spiral_dir, expected_out_string',
   test_encode_loop_list
   )
 def test_encode_loop(
@@ -347,9 +337,8 @@ def test_encode_loop(
   loop_idx,
   loc,
   spiral_dir,
-  expected_out_string,
-  expected_is_encoding_done
+  expected_out_string
   ):
 
   output = encode_loop(encoder_array, loop_idx, loc, spiral_dir)
-  assert(output == (expected_out_string, expected_is_encoding_done))
+  assert(output == expected_out_string)
