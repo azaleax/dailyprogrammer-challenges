@@ -1,6 +1,5 @@
 from enum import Enum
 
-#TODO make the code generic to account for both directions
 #TODO allow starting location as an input... currently, encoding always starts at top-right
 
 class Location(object):
@@ -14,7 +13,7 @@ class Location(object):
   def __str__(self):
     return ('(' + str(self.row) + ', ' + str(self.col) + ')')
 
-  def set_loc(row, col):
+  def set_loc(self, row, col):
     self.row = row
     self.col = col
 
@@ -54,6 +53,8 @@ direction_order = [
   ], 
 ]
 
+IS_CHAR_DECODED = ' '
+
 # Populate the encoder array
 def populate_encoder_array(string, encoder_array):
   column_size = len(encoder_array[0])
@@ -73,7 +74,11 @@ def traverse(
   out_string = ''
 
   for step in range(num_steps):
+    if encoder_array[loc.row][loc.col] == IS_CHAR_DECODED:
+      break
+
     out_string += encoder_array[loc.row][loc.col]
+    encoder_array[loc.row][loc.col] = IS_CHAR_DECODED
     loc.step(traverse_dir)
 
   return out_string
@@ -88,9 +93,10 @@ def encode_loop(
   ):
 
   out_string = ''
-  is_encoding_done = False
   num_vertical_steps = len(encoder_array) - ((2 * loop_idx) + 1)
   num_horizontal_steps = len(encoder_array[0]) - ((2 * loop_idx) + 1)
+  num_fail = 0
+  is_encoding_done = False
 
   for idx in range(Traverse_Directions.NUM_DIRECTIONS.value):
     if (direction_order[spiral_dir.value][idx] == Traverse_Directions.UP or
@@ -99,18 +105,20 @@ def encode_loop(
     else:
       num_steps = num_horizontal_steps
 
-    out_string += traverse(
-                      encoder_array,
-                      loc,
-                      num_steps,
-                      direction_order[spiral_dir.value][idx]
-                      )
+    traversed_string = traverse(
+      encoder_array,
+      loc,
+      num_steps,
+      direction_order[spiral_dir.value][idx]
+      )
+
+    out_string += traversed_string
 
   return out_string, is_encoding_done
 
 
 # Encode for clockwise direction
-def encode_spiral(string, encoder_array, is_encoded_array, spiral_dir):
+def encode_spiral(string, encoder_array, spiral_dir):
   # Always start encoding at top-right
   loop_start_loc = Location(0, len(encoder_array[0]) - 1)
   loop_idx = 0
@@ -118,10 +126,12 @@ def encode_spiral(string, encoder_array, is_encoded_array, spiral_dir):
   out_string = ''
   is_encoding_done = False
 
-  # TODO Remove this assert once counter_clockwise is implemented
-  assert(spiral_dir == Spiral_Directions.CLOCKWISE)
+  stop_idx = int(min(len(encoder_array[0]) / 2, len(encoder_array) / 2) + 1)
 
-  while(is_encoding_done == False):  
+  while(True):
+
+    out_string = out_string + loop_string
+
     loop_string, is_encoding_done = encode_loop(
       encoder_array,
       loop_idx,
@@ -129,15 +139,15 @@ def encode_spiral(string, encoder_array, is_encoded_array, spiral_dir):
       spiral_dir
       )
 
-    out_string = out_string + loop_string
+    loop_idx += 1
 
     loop_start_loc.set_loc(
-      loop_start_loc.row + loop_idx,
-      loop_start_loc.col - loop_idx
+      loop_start_loc.row + 1,
+      loop_start_loc.col - 1
       )
 
-    print(out_string)
-    loop_idx += 1
+    if (loop_string == ''):
+      break
 
   return out_string
 

@@ -10,35 +10,49 @@ from route_cipher import encode_loop
 Class definition for unit test parameters
 """
 class RouteCipherTest:
-  def  __init__(self, inp_string, dimension, direction, expected_out_string):
+  def  __init__(
+    self,
+    inp_string,
+    dimension,
+    direction,
+    expected_out_string
+    ):
     self.inp_string           = inp_string
     self.dimension            = dimension
     self.direction            = direction
     self.expected_out_string  = expected_out_string
 
-class TraverseTest:
-  encoder_array = [['A', 'B', 'C', 'D'],
-                   ['E', 'F', 'G', 'H'],
-                   ['I', 'J', 'K', 'L'],
-                   ['M', 'N', 'O', 'P']]
-  
-  def __init__(self, start_loc, num_step, traverse_dir, expected_out_string):
+class TraverseTest:  
+  def __init__(
+    self,
+    encoder_array,
+    start_loc,
+    num_step,
+    traverse_dir,
+    expected_out_string
+    ):
+    self.encoder_array        = encoder_array
     self.start_loc            = start_loc
     self.num_step             = num_step
     self.traverse_dir         = traverse_dir
     self.expected_out_string  = expected_out_string
 
 class EncodeLoopTest:
-  encoder_array = [['A', 'B', 'C', 'D'],
-                   ['E', 'F', 'G', 'H'],
-                   ['I', 'J', 'K', 'L'],
-                   ['M', 'N', 'O', 'P']]
-  
-  def __init__(self, start_loc, loop_idx, spiral_dir, expected_out_string):
+  def __init__(
+    self, 
+    encoder_array,
+    start_loc,
+    loop_idx,
+    spiral_dir,
+    expected_out_string,
+    expected_is_encoding_done
+    ):
+    self.encoder_array        = encoder_array
     self.start_loc            = start_loc
     self.loop_idx             = loop_idx
     self.spiral_dir           = spiral_dir
     self.expected_out_string  = expected_out_string
+    self.expected_is_encoding_done = expected_is_encoding_done
 
 """
 Objects defined for unit tests
@@ -86,59 +100,95 @@ test_route_cipher__example_6 = RouteCipherTest(
   )
 
 test_traverse__down = TraverseTest(
+  [['A', 'B', 'C', 'D'],
+   ['E', 'F', 'G', 'H'],
+   ['I', 'J', 'K', 'L'],
+   ['M', 'N', 'O', 'P']],
   Location(0, 0),
   3,
   Traverse_Directions.DOWN,
-  "EIM",
+  "AEI",
   )
 
 test_traverse__right = TraverseTest(
+  [['A', 'B', 'C', 'D'],
+   ['E', 'F', 'G', 'H'],
+   ['I', 'J', 'K', 'L'],
+   ['M', 'N', 'O', 'P']],
   Location(0, 0),
   3,
   Traverse_Directions.RIGHT,
-  "BCD",
+  "ABC",
   )
 
 test_traverse__up = TraverseTest(
+  [['A', 'B', 'C', 'D'],
+   ['E', 'F', 'G', 'H'],
+   ['I', 'J', 'K', 'L'],
+   ['M', 'N', 'O', 'P']],
   Location(3, 0),
   3,
   Traverse_Directions.UP,
-  "IEA",
+  "MIE",
   )
 
 test_traverse__left = TraverseTest(
+  [['A', 'B', 'C', 'D'],
+   ['E', 'F', 'G', 'H'],
+   ['I', 'J', 'K', 'L'],
+   ['M', 'N', 'O', 'P']],
   Location(0, 3),
   3,
   Traverse_Directions.LEFT,
-  "CBA",
+  "DCB",
   )
 
 test_encode_loop__clockwise_0 = EncodeLoopTest(
+  [['A', 'B', 'C', 'D'],
+   ['E', 'F', 'G', 'H'],
+   ['I', 'J', 'K', 'L'],
+   ['M', 'N', 'O', 'P']],
   Location(0, 3),
   0,
   Spiral_Directions.CLOCKWISE,
-  "DHLPONMEIABC",
+  "DHLPONMIEABC",
+  False,
   )
 
 test_encode_loop__clockwise_1 = EncodeLoopTest(
+  [['A', 'B', 'C', 'D'],
+   ['E', 'F', 'G', 'H'],
+   ['I', 'J', 'K', 'L'],
+   ['M', 'N', 'O', 'P']],
   Location(1, 2),
   1,
   Spiral_Directions.CLOCKWISE,
   "GKJF",
+  False,
   )
 
 test_encode_loop__counter_clockwise_0 = EncodeLoopTest(
+  [['A', 'B', 'C', 'D'],
+   ['E', 'F', 'G', 'H'],
+   ['I', 'J', 'K', 'L'],
+   ['M', 'N', 'O', 'P']],
   Location(0, 3),
   0,
   Spiral_Directions.COUNTER_CLOCKWISE,
-  "DCBAIEMNOPLH",
+  "DCBAEIMNOPLH",
+  False,
   )
 
 test_encode_loop__counter_clockwise_1 = EncodeLoopTest(
+  [['A', 'B', 'C', 'D'],
+   ['E', 'F', 'G', 'H'],
+   ['I', 'J', 'K', 'L'],
+   ['M', 'N', 'O', 'P']],
   Location(1, 2),
   1,
   Spiral_Directions.COUNTER_CLOCKWISE,
   "GFJK",
+  False,
   )
 
 """
@@ -214,25 +264,29 @@ test_encode_loop_list = [
    test_encode_loop__clockwise_0.loop_idx,
    test_encode_loop__clockwise_0.start_loc,
    test_encode_loop__clockwise_0.spiral_dir,
-   test_encode_loop__clockwise_0.expected_out_string),
+   test_encode_loop__clockwise_0.expected_out_string,
+   test_encode_loop__clockwise_0.expected_is_encoding_done),
 
   (test_encode_loop__clockwise_1.encoder_array,
    test_encode_loop__clockwise_1.loop_idx,
    test_encode_loop__clockwise_1.start_loc,
    test_encode_loop__clockwise_1.spiral_dir,
-   test_encode_loop__clockwise_1.expected_out_string),
+   test_encode_loop__clockwise_1.expected_out_string,
+   test_encode_loop__clockwise_1.expected_is_encoding_done),
 
   (test_encode_loop__counter_clockwise_0.encoder_array,
    test_encode_loop__counter_clockwise_0.loop_idx,
    test_encode_loop__counter_clockwise_0.start_loc,
    test_encode_loop__counter_clockwise_0.spiral_dir,
-   test_encode_loop__counter_clockwise_0.expected_out_string),
+   test_encode_loop__counter_clockwise_0.expected_out_string,
+   test_encode_loop__counter_clockwise_0.expected_is_encoding_done),
 
   (test_encode_loop__counter_clockwise_1.encoder_array,
    test_encode_loop__counter_clockwise_1.loop_idx,
    test_encode_loop__counter_clockwise_1.start_loc,
    test_encode_loop__counter_clockwise_1.spiral_dir,
-   test_encode_loop__counter_clockwise_1.expected_out_string),
+   test_encode_loop__counter_clockwise_1.expected_out_string,
+   test_encode_loop__counter_clockwise_1.expected_is_encoding_done),
 
 ]
 
@@ -241,7 +295,6 @@ test_encode_loop_list = [
 Functions to run the unit tests
 """
 
-@pytest.mark.skip
 @pytest.mark.parametrize(
   'inp_string, dimension,direction, expected_out_string',
   test_route_cipher_clockwise_list
@@ -256,7 +309,6 @@ def test_route_cipher_clockwise(
   actual_out_string = encode(inp_string, dimension, direction)
   assert (actual_out_string == expected_out_string)
 
-@pytest.mark.skip
 @pytest.mark.parametrize(
   'inp_string, dimension, direction, expected_out_string',
   test_route_cipher_counter_clockwise_list
@@ -283,11 +335,11 @@ def test_traverse(
   traverse_dir,
   expected_out_string):
 
-  string = encode_loop(encoder_array, start_loc, num_step, traverse_dir)
+  string = traverse(encoder_array, start_loc, num_step, traverse_dir)
   assert(string == expected_out_string)
 
 @pytest.mark.parametrize(
-  'encoder_array, loop_idx, loc, spiral_dir, expected_out_string',
+  'encoder_array, loop_idx, loc, spiral_dir, expected_out_string, expected_is_encoding_done',
   test_encode_loop_list
   )
 def test_encode_loop(
@@ -295,8 +347,9 @@ def test_encode_loop(
   loop_idx,
   loc,
   spiral_dir,
-  expected_out_string
+  expected_out_string,
+  expected_is_encoding_done
   ):
 
-  string = encode_loop(encoder_array, loop_idx, loc, spiral_dir)
-  assert(string == expected_out_string)
+  output = encode_loop(encoder_array, loop_idx, loc, spiral_dir)
+  assert(output == (expected_out_string, expected_is_encoding_done))
