@@ -1,8 +1,5 @@
 from enum import Enum
 
-#TODO logic cleanup
-#TODO code clean up & refactoring
-#TODO remove debug print statements
 #TODO make the code generic to account for both directions
 #TODO allow starting location as an input... currently, encoding always starts at top-right
 
@@ -12,11 +9,24 @@ class Location(object):
     self.col = col
 
   def __eq__(self, other):
-    return (self.row == other.row and elf.col == other.col)
+    return (self.row == other.row and self.col == other.col)
+
+  def __str__(self):
+    return ('(' + str(self.row) + ', ' + str(self.col) + ')')
 
   def set_loc(row, col):
     self.row = row
     self.col = col
+
+  def step(self, traverse_dir):
+    if (traverse_dir == Traverse_Directions.RIGHT):
+      self.col += 1
+    elif (traverse_dir == Traverse_Directions.DOWN):
+      self.row += 1
+    elif (traverse_dir == Traverse_Directions.LEFT):
+      self.col -= 1
+    elif (traverse_dir == Traverse_Directions.UP):
+      self.row -= 1
 
 class Spiral_Directions(Enum):
   CLOCKWISE         = 0
@@ -27,6 +37,22 @@ class Traverse_Directions(Enum):
   DOWN              = 1
   RIGHT             = 2
   LEFT              = 3
+  NUM_DIRECTIONS    = 4
+
+direction_order = [
+  [
+    Traverse_Directions.DOWN,
+    Traverse_Directions.LEFT,
+    Traverse_Directions.UP,
+    Traverse_Directions.RIGHT,
+  ],
+  [
+    Traverse_Directions.LEFT,
+    Traverse_Directions.DOWN,
+    Traverse_Directions.RIGHT,
+    Traverse_Directions.UP,
+  ], 
+]
 
 # Populate the encoder array
 def populate_encoder_array(string, encoder_array):
@@ -35,49 +61,50 @@ def populate_encoder_array(string, encoder_array):
   for i, char in enumerate(string):
     encoder_array[int(i / column_size)][int(i % column_size)] = char
 
+
 # Traverse based on direction
 def traverse(
-  start_loc,
-  end_loc,
+  encoder_array,
+  loc,
+  num_steps,
   traverse_dir
   ):
 
-  if (traverse_dir == Traverse_Directions.RIGHT):
-    for col in range(start_loc.col, end_loc.col):
-      out_string += encoder_array[start_loc.row][col]
+  out_string = ''
 
-  elif (traverse_dir == Traverse_Directions.DOWN):
-    for row in range(start_loc.row, end_loc.row):
-      out_string += encoder_array[row][start_loc.col]
-
-  elif (traverse_dir == Traverse_Directions.LEFT):
-    for col in reversed(range(end_loc.col, start_loc.col)):
-      out_string += encoder_array[start_loc.row][col]
-
-  elif (traverse_dir == Traverse_Direction.UP):
-    for row in reversed(range(end_loc.row, start_loc.row)):
-      out_string += encoder_array[row][start_loc.col]
-
-  assert(start_loc == end_loc)
+  for step in range(num_steps):
+    out_string += encoder_array[loc.row][loc.col]
+    loc.step(traverse_dir)
 
   return out_string
 
+
 # Create one loop for string
-# TODO This function is messy & hardcoded to a certain extent... need to clean up the logic
 def encode_loop(
   encoder_array,
   loop_idx,
-  start_loc,
+  loc,
   spiral_dir
   ):
 
   out_string = ''
   is_encoding_done = False
+  num_vertical_steps = len(encoder_array) - ((2 * loop_idx) + 1)
+  num_horizontal_steps = len(encoder_array[0]) - ((2 * loop_idx) + 1)
 
-  #clockwise implementation first
+  for idx in range(Traverse_Directions.NUM_DIRECTIONS.value):
+    if (direction_order[spiral_dir.value][idx] == Traverse_Directions.UP or
+        direction_order[spiral_dir.value][idx] == Traverse_Directions.DOWN):
+          num_steps = num_vertical_steps
+    else:
+      num_steps = num_horizontal_steps
 
-  end_loc = Location(start_loc.row, len(encoder_array)
-  out_string += traverse(start_loc, Traverse_Directions.DOWN,)
+    out_string += traverse(
+                      encoder_array,
+                      loc,
+                      num_steps,
+                      direction_order[spiral_dir.value][idx]
+                      )
 
   return out_string, is_encoding_done
 
