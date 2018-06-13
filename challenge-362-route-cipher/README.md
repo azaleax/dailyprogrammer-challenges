@@ -13,4 +13,4 @@ route_cipher.py contains encode() which encodes given input string into route ci
 test_route_cipher.py is pytest module to test out the example string inputs from the code challenge link
 
 ## Status
-Only clockwise direction is implemented right now. Also, the current logic is very specific to clockwise scenario for starting out at top-right. Need to clean up the logic to make it more generic.
+Both clockwise and counterclockwise are implemented.
